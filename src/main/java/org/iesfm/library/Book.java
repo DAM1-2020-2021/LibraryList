@@ -1,6 +1,5 @@
 package org.iesfm.library;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,7 +9,7 @@ public class Book {
     private String author;
     private List<String> genres;
 
-    public Book(int isbn, String title, String author, LinkedList<String> genres) {
+    public Book(int isbn, String title, String author, List<String> genres) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -49,7 +48,7 @@ public class Book {
         return genres;
     }
 
-    public void setGenres(LinkedList<String> genres) {
+    public void setGenres(List<String> genres) {
         this.genres = genres;
     }
 
