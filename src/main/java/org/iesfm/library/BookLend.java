@@ -2,7 +2,7 @@ package org.iesfm.library;
 
 import java.util.Objects;
 
-public class BookLend {
+public class BookLend implements Comparable<BookLend> {
 
     private int isbn;
     private String memberNif;
@@ -14,6 +14,16 @@ public class BookLend {
         this.memberNif = memberNif;
         this.lendDate = lendDate;
         this.retriveDate = retriveDate;
+    }
+
+    @Override
+    public int compareTo(BookLend bookLend) {
+        int nifCompare = memberNif.compareTo(bookLend.getMemberNif());
+        if (nifCompare == 0) {
+            return lendDate.compareTo(bookLend.getLendDate());
+        } else {
+            return nifCompare;
+        }
     }
 
     public int getIsbn() {

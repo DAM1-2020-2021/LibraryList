@@ -1,18 +1,17 @@
 package org.iesfm.library;
 
 import org.iesfm.library.exception.InvalidCpException;
+import org.iesfm.library.exception.InvalidMemberException;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Library implements ILibrary {
     private String name;
     private List<Book> books;
     private List<Member> members;
-    private List<BookLend> bookLends;
+    private Set<BookLend> bookLends;
 
-    public Library(String name, List<Book> books, List<Member> members, List<BookLend> bookLends) {
+    public Library(String name, List<Book> books, List<Member> members, Set<BookLend> bookLends) {
         this.name = name;
         this.books = books;
         this.members = members;
@@ -21,23 +20,34 @@ public class Library implements ILibrary {
 
     @Override
     public List<Book> findBooks(String genre) {
-        List<Book> genreBooks = new LinkedList<>();
-        for(Book book: books) {
-            if(book.hasGenre(genre)) {
+        List<Book> genreBooks = new ArrayList<>();
+        for (Book book : books) {
+            if (book.hasGenre(genre)) {
                 genreBooks.add(book);
             }
         }
         return genreBooks;
     }
 
+
+    private Book getBook(int isbn) {
+        Book b = null;
+        for (Book book : books) {
+            if (book.getIsbn() == isbn) {
+                b = book;
+            }
+        }
+        return b;
+    }
+
     @Override
     public List<Member> findMembers(int cp) throws InvalidCpException {
-        if(cp < 1000 || cp > 54000) {
+        if (cp < 1000 || cp > 54000) {
             throw new InvalidCpException();
         }
-        LinkedList<Member> cpMembers = new LinkedList<>();
-        for(Member member: members) {
-            if(member.getCp() == cp) {
+        List<Member> cpMembers = new ArrayList<>();
+        for (Member member : members) {
+            if (member.getCp() == cp) {
                 cpMembers.add(member);
             }
         }
@@ -69,24 +79,13 @@ public class Library implements ILibrary {
         this.members = members;
     }
 
-    public List<BookLend> getBookLends() {
+    public Set<BookLend> getBookLends() {
         return bookLends;
     }
 
-    public void setBookLends(List<BookLend> bookLends) {
+    public void setBookLends(Set<BookLend> bookLends) {
         this.bookLends = bookLends;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Library library = (Library) o;
-        return Objects.equals(name, library.name) && Objects.equals(books, library.books) && Objects.equals(members, library.members) && Objects.equals(bookLends, library.bookLends);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, books, members, bookLends);
-    }
 }

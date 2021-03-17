@@ -5,9 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class LibraryTests {
 
@@ -17,17 +15,19 @@ public class LibraryTests {
 
     @Before
     public void setUp(){
-        books = new LinkedList<>();
-        List<String> genres = new ArrayList<>();
+        books = new ArrayList<>();
+        Set<String> genres = new HashSet<>();
         genres.add("Terror");
         books.add(new Book(1, "titulo1", "autor", genres));
         books.add(new Book(2, "titulo2", "autor", genres));
         books.add(new Book(3, "titulo3", "autor", genres));
-        books.add(new Book(4, "titulo4", "autor", new LinkedList<>()));
-        members = new LinkedList<>();
+        books.add(new Book(4, "titulo4", "autor", new HashSet<>()));
+        members = new ArrayList<>();
         members.add(new Member(1, "1", "Fulanito", "adsf", 5000));
         members.add(new Member(2, "2", "Fulanito", "adsf", 5000));
-        library = new Library("Mi libre", books, members, new LinkedList<>());
+        Set<BookLend> lends = new TreeSet<BookLend>();
+        lends.add(new BookLend(1, "", "", ""));
+        library = new Library("Mi libre", books, members, lends);
     }
 
     @Test

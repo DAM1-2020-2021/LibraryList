@@ -2,14 +2,15 @@ package org.iesfm.library;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class Book {
     private int isbn;
     private String title;
     private String author;
-    private List<String> genres;
+    private Set<String> genres;
 
-    public Book(int isbn, String title, String author, List<String> genres) {
+    public Book(int isbn, String title, String author, Set<String> genres) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -44,11 +45,11 @@ public class Book {
         this.author = author;
     }
 
-    public List<String> getGenres() {
+    public Set<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<String> genres) {
+    public void setGenres(Set<String> genres) {
         this.genres = genres;
     }
 
